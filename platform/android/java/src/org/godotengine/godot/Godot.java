@@ -229,6 +229,7 @@ public class Godot extends Activity implements SensorEventListener, IDownloaderC
 	private Sensor mGravity;
 	private Sensor mMagnetometer;
 	private Sensor mGyroscope;
+	private Sensor mRotation;
 
 	public FrameLayout layout;
 
@@ -460,6 +461,8 @@ public class Godot extends Activity implements SensorEventListener, IDownloaderC
 		mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
 		mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
+		mRotation = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+		mSensorManager.registerListener(this, mRotation, SensorManager.SENSOR_DELAY_GAME);
 
 		GodotLib.initialize(this, getAssets(), use_apk_expansion);
 
@@ -695,6 +698,7 @@ public class Godot extends Activity implements SensorEventListener, IDownloaderC
 		mSensorManager.registerListener(this, mGravity, SensorManager.SENSOR_DELAY_GAME);
 		mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
 		mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
+		mSensorManager.registerListener(this, mRotation, SensorManager.SENSOR_DELAY_GAME);
 
 		if (use_immersive && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // check if the application runs on an android 4.4+
 			Window window = getWindow();
@@ -754,8 +758,11 @@ public class Godot extends Activity implements SensorEventListener, IDownloaderC
 		final float x = adjustedValues[0];
 		final float y = adjustedValues[1];
 		final float z = adjustedValues[2];
-
+		
 		final int typeOfSensor = event.sensor.getType();
+		
+		final float w =  (typeOfSensor == Sensor.TYPE_ROTATION_VECTOR) ? event.values[3] : 0.0f ;
+		
 		if (mView != null) {
 			mView.queueEvent(new Runnable() {
 				@Override
@@ -771,6 +778,9 @@ public class Godot extends Activity implements SensorEventListener, IDownloaderC
 					}
 					if (typeOfSensor == Sensor.TYPE_GYROSCOPE) {
 						GodotLib.gyroscope(x, -y, z);
+					}
+					if (typeOfSensor == Sensor.TYPE_ROTATION_VECTOR) {
+						GodotLib.rotation(-x, y, -z, w);
 					}
 				}
 			});

@@ -330,6 +330,10 @@ void OSIPhone::update_gyroscope(float p_x, float p_y, float p_z) {
 	input->set_gyroscope(Vector3(p_x, p_y, p_z));
 };
 
+void OSIPhone::update_rotation(float p_x, float p_y, float p_z, float p_w) {
+	input->set_rotation(Quat(p_x, p_y, p_z, p_w));
+};
+
 int OSIPhone::get_unused_joy_id() {
 	return input->get_unused_joy_id();
 };

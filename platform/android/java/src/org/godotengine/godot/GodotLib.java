@@ -56,6 +56,7 @@ public class GodotLib {
 	public static native void gravity(float x, float y, float z);
 	public static native void magnetometer(float x, float y, float z);
 	public static native void gyroscope(float x, float y, float z);
+	public static native void rotation(float x, float y, float z, float w);
 	public static native void key(int p_scancode, int p_unicode_char, boolean p_pressed);
 	public static native void joybutton(int p_device, int p_but, boolean p_pressed);
 	public static native void joyaxis(int p_device, int p_axis, float p_value);

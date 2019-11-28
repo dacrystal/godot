@@ -225,6 +225,7 @@ public:
 	void process_gravity(const Vector3 &p_gravity);
 	void process_magnetometer(const Vector3 &p_magnetometer);
 	void process_gyroscope(const Vector3 &p_gyroscope);
+	void process_rotation(const Quat &p_rotation);
 	void process_touch(int p_what, int p_pointer, const Vector<TouchPos> &p_points);
 	void process_joy_event(JoypadEvent p_event);
 	void process_event(Ref<InputEvent> p_event);

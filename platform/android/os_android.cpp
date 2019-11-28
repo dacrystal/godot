@@ -486,6 +486,11 @@ void OS_Android::process_gyroscope(const Vector3 &p_gyroscope) {
 	input->set_gyroscope(p_gyroscope);
 }
 
+void OS_Android::process_rotation(const Quat &p_rotation) {
+
+	input->set_rotation(p_rotation);
+}
+
 bool OS_Android::has_touchscreen_ui_hint() const {
 
 	return true;

@@ -48,6 +48,7 @@ class InputDefault : public Input {
 	Vector3 accelerometer;
 	Vector3 magnetometer;
 	Vector3 gyroscope;
+	Quat rotation;
 	Vector2 mouse_pos;
 	MainLoop *main_loop;
 
@@ -208,6 +209,7 @@ public:
 	virtual Vector3 get_accelerometer() const;
 	virtual Vector3 get_magnetometer() const;
 	virtual Vector3 get_gyroscope() const;
+	virtual Quat get_rotation() const;
 
 	virtual Point2 get_mouse_position() const;
 	virtual Point2 get_last_mouse_speed() const;
@@ -222,6 +224,7 @@ public:
 	void set_accelerometer(const Vector3 &p_accel);
 	void set_magnetometer(const Vector3 &p_magnetometer);
 	void set_gyroscope(const Vector3 &p_gyroscope);
+	void set_rotation(const Quat &p_rotation);
 	void set_joy_axis(int p_device, int p_axis, float p_value);
 
 	virtual void start_joy_vibration(int p_device, float p_weak_magnitude, float p_strong_magnitude, float p_duration = 0);

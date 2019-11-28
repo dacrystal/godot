@@ -113,6 +113,7 @@ public:
 	virtual Vector3 get_accelerometer() const = 0;
 	virtual Vector3 get_magnetometer() const = 0;
 	virtual Vector3 get_gyroscope() const = 0;
+	virtual Quat get_rotation() const = 0;
 
 	virtual void action_press(const StringName &p_action, float p_strength = 1.f) = 0;
 	virtual void action_release(const StringName &p_action) = 0;

@@ -536,6 +536,9 @@ static int frame_count = 0;
 					/// best
 					CMRotationRate rotation = motionManager.deviceMotion.rotationRate;
 
+
+					CMQuaternion quaternion = motionManager.deviceMotion.attitude.quaternion;
+
 					// Adjust for screen orientation.
 					// [[UIDevice currentDevice] orientation] changes even if we've fixed
 					// our orientation which is not a good thing when you're trying to get
@@ -558,6 +561,8 @@ static int frame_count = 0;
 									-magnetic.y, magnetic.x, magnetic.z);
 							OSIPhone::get_singleton()->update_gyroscope(-rotation.y, rotation.x,
 									rotation.z);
+							OSIPhone::get_singleton()->update_rotation(-quaternion.y, quaternion.x,
+									quaternion.z, quaternion.w);
 						}; break;
 						case UIDeviceOrientationLandscapeRight: {
 							OSIPhone::get_singleton()->update_gravity(gravity.y, -gravity.x,
@@ -569,6 +574,8 @@ static int frame_count = 0;
 									magnetic.y, -magnetic.x, magnetic.z);
 							OSIPhone::get_singleton()->update_gyroscope(rotation.y, -rotation.x,
 									rotation.z);
+							OSIPhone::get_singleton()->update_rotation(quaternion.y, -quaternion.x,
+									quaternion.z, quaternion.w);
 						}; break;
 						case UIDeviceOrientationPortraitUpsideDown: {
 							OSIPhone::get_singleton()->update_gravity(-gravity.x, gravity.y,
@@ -580,6 +587,8 @@ static int frame_count = 0;
 									-magnetic.x, magnetic.y, magnetic.z);
 							OSIPhone::get_singleton()->update_gyroscope(-rotation.x, rotation.y,
 									rotation.z);
+							OSIPhone::get_singleton()->update_rotation(-quaternion.x, quaternion.y,
+									quaternion.z, quaternion.w);
 						}; break;
 						default: { // assume portrait
 							OSIPhone::get_singleton()->update_gravity(gravity.x, gravity.y,
@@ -591,6 +600,8 @@ static int frame_count = 0;
 									magnetic.z);
 							OSIPhone::get_singleton()->update_gyroscope(rotation.x, rotation.y,
 									rotation.z);
+							OSIPhone::get_singleton()->update_rotation(quaternion.x, quaternion.y,
+									quaternion.z, quaternion.w);
 						}; break;
 					};
 				}

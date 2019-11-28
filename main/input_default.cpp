@@ -254,6 +254,12 @@ Vector3 InputDefault::get_gyroscope() const {
 	return gyroscope;
 }
 
+Quat InputDefault::get_rotation() const {
+
+	_THREAD_SAFE_METHOD_
+	return rotation;
+}
+
 void InputDefault::parse_input_event(const Ref<InputEvent> &p_event) {
 
 	_parse_input_event_impl(p_event, false);
@@ -502,6 +508,13 @@ void InputDefault::set_gyroscope(const Vector3 &p_gyroscope) {
 	_THREAD_SAFE_METHOD_
 
 	gyroscope = p_gyroscope;
+}
+
+void InputDefault::set_rotation(const Quat &p_rotation) {
+
+	_THREAD_SAFE_METHOD_
+
+	rotation = p_rotation;
 }
 
 void InputDefault::set_main_loop(MainLoop *p_main_loop) {

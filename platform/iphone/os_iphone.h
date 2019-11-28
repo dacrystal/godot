@@ -133,6 +133,7 @@ public:
 	void update_accelerometer(float p_x, float p_y, float p_z);
 	void update_magnetometer(float p_x, float p_y, float p_z);
 	void update_gyroscope(float p_x, float p_y, float p_z);
+	void update_rotation(float p_x, float p_y, float p_z, float p_w);
 
 	int get_unused_joy_id();
 	void joy_connection_changed(int p_idx, bool p_connected, String p_name);
