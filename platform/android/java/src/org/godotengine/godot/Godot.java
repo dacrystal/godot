@@ -780,7 +780,7 @@ public class Godot extends Activity implements SensorEventListener, IDownloaderC
 						GodotLib.gyroscope(x, -y, z);
 					}
 					if (typeOfSensor == Sensor.TYPE_ROTATION_VECTOR) {
-						GodotLib.rotation(-x, y, -z, w);
+						GodotLib.rotation(x, -y, z, w);
 					}
 				}
 			});
