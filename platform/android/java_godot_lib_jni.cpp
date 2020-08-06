@@ -64,6 +64,7 @@ static Vector3 accelerometer;
 static Vector3 gravity;
 static Vector3 magnetometer;
 static Vector3 gyroscope;
+static Quat rotation;
 
 static void _initialize_java_modules() {
 
@@ -265,6 +266,7 @@ JNIEXPORT void JNICALL Java_org_godotengine_godot_GodotLib_step(JNIEnv *env, jcl
 	os_android->process_gravity(gravity);
 	os_android->process_magnetometer(magnetometer);
 	os_android->process_gyroscope(gyroscope);
+	os_android->process_rotation(rotation);
 
 	if (os_android->main_loop_iterate()) {
 
@@ -417,6 +419,10 @@ JNIEXPORT void JNICALL Java_org_godotengine_godot_GodotLib_magnetometer(JNIEnv *
 
 JNIEXPORT void JNICALL Java_org_godotengine_godot_GodotLib_gyroscope(JNIEnv *env, jclass clazz, jfloat x, jfloat y, jfloat z) {
 	gyroscope = Vector3(x, y, z);
+}
+
+JNIEXPORT void JNICALL Java_org_godotengine_godot_GodotLib_rotation(JNIEnv *env, jobject obj, jfloat x, jfloat y, jfloat z, jfloat w) {
+	rotation = Quat(x, y, z, w);
 }
 
 JNIEXPORT void JNICALL Java_org_godotengine_godot_GodotLib_focusin(JNIEnv *env, jclass clazz) {

@@ -252,6 +252,7 @@ public abstract class Godot extends FragmentActivity implements SensorEventListe
 	private Sensor mGravity;
 	private Sensor mMagnetometer;
 	private Sensor mGyroscope;
+	private Sensor mRotation;
 
 	public static GodotIO io;
 	public static GodotNetUtils netUtils;
@@ -532,6 +533,8 @@ public abstract class Godot extends FragmentActivity implements SensorEventListe
 		mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
 		mGyroscope = mSensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 		mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
+		mRotation = mSensorManager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+		mSensorManager.registerListener(this, mRotation, SensorManager.SENSOR_DELAY_GAME);
 
 		GodotLib.initialize(this, getAssets(), use_apk_expansion);
 
@@ -781,6 +784,7 @@ public abstract class Godot extends FragmentActivity implements SensorEventListe
 		mSensorManager.registerListener(this, mGravity, SensorManager.SENSOR_DELAY_GAME);
 		mSensorManager.registerListener(this, mMagnetometer, SensorManager.SENSOR_DELAY_GAME);
 		mSensorManager.registerListener(this, mGyroscope, SensorManager.SENSOR_DELAY_GAME);
+		mSensorManager.registerListener(this, mRotation, SensorManager.SENSOR_DELAY_GAME);
 
 		if (use_immersive && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) { // check if the application runs on an android 4.4+
 			Window window = getWindow();
@@ -845,6 +849,7 @@ public abstract class Godot extends FragmentActivity implements SensorEventListe
 		final float z = adjustedValues[2];
 
 		final int typeOfSensor = event.sensor.getType();
+		final float w = (typeOfSensor == Sensor.TYPE_ROTATION_VECTOR) ? event.values[3] : 0.0f;
 		if (mView != null) {
 			mView.queueEvent(new Runnable() {
 				@Override
@@ -860,6 +865,9 @@ public abstract class Godot extends FragmentActivity implements SensorEventListe
 					}
 					if (typeOfSensor == Sensor.TYPE_GYROSCOPE) {
 						GodotLib.gyroscope(x, -y, z);
+					}
+					if (typeOfSensor == Sensor.TYPE_ROTATION_VECTOR) {
+						GodotLib.rotation(x, -y, z, w);
 					}
 				}
 			});

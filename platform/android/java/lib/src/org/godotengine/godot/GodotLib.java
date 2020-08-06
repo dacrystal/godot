@@ -135,6 +135,12 @@ public class GodotLib {
 	public static native void gyroscope(float x, float y, float z);
 
 	/**
+	 * Forward rotation vector sensor events from the main thread to the GL thread.
+	 * @see android.hardware.SensorEventListener#onSensorChanged(SensorEvent)
+	 */
+	public static native void rotation(float x, float y, float z, float w);
+
+	/**
 	 * Forward regular key events from the main thread to the GL thread.
 	 */
 	public static native void key(int p_scancode, int p_unicode_char, boolean p_pressed);
